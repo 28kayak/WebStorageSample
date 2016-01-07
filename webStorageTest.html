@@ -1,19 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 	<meta charset="utf-8" />
+	<title>予定管理アプリ</title>
 	<script type="text/javascript">
-	function show () {
-		if (!localStorage) {
-			alert("this browther can not use local storage");
+	//function show () {
+	//	if (!localStorage) {
+	//		alert("this browther can not use local storage");
+	//	}
+	//	if (sessionStorage) {
+	//		alert("this browther can not use local storage");
+	//	};
+	//}
+	var a = new Array();
+	//do below after loading html
+	function load()
+	{
+		var Is = localStorage.getItem("yotei");
+		if (Is != null) 
+		{
+			a = JSON.parse(Is); // insert into a(array)
+
+		}else{
+			a = [];
 		}
-		if (sessionStorage) {
-			alert("this browther can not use local storage");
-		};
+		show();
+	}
+	//function for input
+	function input()
+	{
+		if (document.getElementById("input1").value == " " || document.getElementById('input2') == " ")
+		{
+			alert("input is empty");
+		}else{
+			a.push({
+				"gappi" : document.getElementById('input1').value,
+				"memo" : document.getElementById('imput2').value
+			});
+			save();	
+		}
+	}
+	//function for delete 
+	function deleteValue(){
+		a.splice(x,1);//delete an element in arrya a at x index.
+		save();
+	}
+	//function for desplay
+	function show(){
+		var info = '<table border' + 
+			'cellpandding = "5"' + 
+			'<tr><th>month::date</th><th>detail</th><th>delte</th></tr>';
+		sorting();
+		for (var i = 0; i < a.length; i++)
+		 {
+			s += '<tr>'
+			for (var p in a[i])
+			{
+				s += '<td>' + a[i][p] + '</td>';
+			}
+			s += '<td><button onclick="deleteValue(' + i + ')"> delete </button></td>';
+			s += '</tr>';
+		}
+		s += '</table>';
+		document.getElementById('output').innerHTML = s;
+		//save array a to local storage and then show accending order 
+		function save()
+		{
+			localStorage.setItem('yotei', JSON.querystring.stringify(a));
+			show();	
+		}
+		function sorting()
+		{
+			for (var i = 0; i < a.length; i++) 
+			{
+				a[i] = JSON.parse(a[i]);
+			}
+			a.sort();
+			for (var i = 0; i < a.length; i++) {
+				a[i] = JSON.parse(a[i]);
+			}
+		}
+
+
 	}
 	</script>
-</head>
-<body onload="show()">
+</head
 
+<!--<body onload="show()"> -->
+<body onload="load()">
+	<form>
+		Month:Date: <input type="date" id="input1"> <br>
+		Detail: <input type="text" id="input2"> <br>
+		<button type="button" onclick="input()">
+			Enter Values
+		</button> 
+	</form>
+	<div id="output">
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>Detail</th>
+				<th>Delete</th>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
