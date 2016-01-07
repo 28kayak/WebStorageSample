@@ -24,6 +24,7 @@
 		}else{
 			a = [];
 		}
+		console.log("before show");
 		show();
 	}
 	//function for input
@@ -46,7 +47,8 @@
 		save();
 	}
 	//function for desplay
-	function show(){
+	function show()
+	{
 		var info = '<table border' + 
 			'cellpandding = "5"' + 
 			'<tr><th>month::date</th><th>detail</th><th>delte</th></tr>';
@@ -63,25 +65,24 @@
 		}
 		s += '</table>';
 		document.getElementById('output').innerHTML = s;
-		//save array a to local storage and then show accending order 
-		function save()
+	}
+	//save array a to local storage and then show accending order 
+	function save()
+	{
+		localStorage.setItem('yotei', JSON.querystring.stringify(a));
+		show();	
+	}
+	function sorting()
+	{
+		for (var i = 0; i < a.length; i++) 
 		{
-			localStorage.setItem('yotei', JSON.querystring.stringify(a));
-			show();	
+			a[i] = JSON.parse(a[i]);
 		}
-		function sorting()
+		a.sort();
+		for (var i = 0; i < a.length; i++) 
 		{
-			for (var i = 0; i < a.length; i++) 
-			{
-				a[i] = JSON.parse(a[i]);
-			}
-			a.sort();
-			for (var i = 0; i < a.length; i++) {
-				a[i] = JSON.parse(a[i]);
-			}
+			a[i] = JSON.parse(a[i]);
 		}
-
-
 	}
 	</script>
 </head
