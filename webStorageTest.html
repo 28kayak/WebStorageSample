@@ -36,13 +36,14 @@
 		}else{
 			a.push({
 				"gappi" : document.getElementById('input1').value,
-				"memo" : document.getElementById('imput2').value
+				"memo" : document.getElementById('input2').value
 			});
 			save();	
 		}
 	}
 	//function for delete 
-	function deleteValue(){
+	function deleteValue()
+	{
 		a.splice(x,1);//delete an element in arrya a at x index.
 		save();
 	}
